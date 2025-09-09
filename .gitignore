@@ -17,5 +17,5 @@ yarn-error.log*
 .vscode/
 .idea/
 
-# Environmeent variables
-.env
+# Todos los .env
+**/.env

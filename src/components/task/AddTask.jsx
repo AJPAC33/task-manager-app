@@ -13,14 +13,7 @@ import {
 } from "../../redux/slices/api/taskApiSlice";
 import { toast } from "sonner";
 import { formatDateForInput } from "../../utils";
-import {
-  LISTS,
-  PRIORITY,
-  PRIORITY_LABELS,
-  PRIORITY_MAP,
-  STAGE_LABELS,
-  STAGE_MAP,
-} from "../../utils/data";
+import { STAGE_OPTIONS, PRIORITY_OPTIONS } from "../../utils/data";
 
 const uploadedFileURLs = [];
 
@@ -29,8 +22,8 @@ export const AddTask = ({ open, setOpen, task }) => {
     title: task?.title || "",
     date: formatDateForInput(task?.date || new Date()),
     team: [],
-    stage: LISTS[0],
-    priority: PRIORITY[2],
+    stage: STAGE_OPTIONS[0].value,
+    priority: PRIORITY_OPTIONS[2].value,
     assets: [],
   };
 
@@ -40,8 +33,10 @@ export const AddTask = ({ open, setOpen, task }) => {
     formState: { errors },
   } = useForm({ defaultValues });
   const [team, setTeam] = useState(task?.team || []);
-  const [stage, setStage] = useState(task?.stage || LISTS[0]);
-  const [priority, setPriority] = useState(task?.priority || PRIORITY[2]);
+  const [stage, setStage] = useState(task?.stage || STAGE_OPTIONS[0].value);
+  const [priority, setPriority] = useState(
+    task?.priority || PRIORITY_OPTIONS[2].value
+  );
   const [assets, setAssets] = useState([]);
   const [uploading, setUploading] = useState(false);
 
@@ -154,9 +149,9 @@ export const AddTask = ({ open, setOpen, task }) => {
             <div className="flex gap-4">
               <SelectList
                 label="Estado de la Tarea"
-                lists={LISTS}
-                selected={STAGE_LABELS[stage]}
-                setSelected={(label) => setStage(STAGE_MAP[label])}
+                options={STAGE_OPTIONS}
+                selected={stage}
+                setSelected={setStage}
               />
 
               <div className="w-full">
@@ -177,9 +172,9 @@ export const AddTask = ({ open, setOpen, task }) => {
             <div className="flex gap-4">
               <SelectList
                 label="Nivel de Prioridad"
-                lists={PRIORITY}
-                selected={PRIORITY_LABELS[priority]}
-                setSelected={(label) => setPriority(PRIORITY_MAP[label])}
+                options={PRIORITY_OPTIONS}
+                selected={priority}
+                setSelected={setPriority}
               />
 
               <div className="w-full flex items-center justify-center mt-4">

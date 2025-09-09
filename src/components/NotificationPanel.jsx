@@ -23,13 +23,21 @@ export const NotificationPanel = () => {
   const [markAsRead] = useMarkNotiAsReadMutation();
 
   const readHandler = async (type, id) => {
-    await markAsRead({ type, id }.unwrap());
-    refetch();
+    try {
+      console.log("Voy a llamar a markAsRead con:", type, id); // 👀
+      await markAsRead({ type, id }).unwrap();
+      console.log("markAsRead ejecutado ✅"); // 👀
+      refetch();
+    } catch (error) {
+      console.error("Error al marcar notificación:", error);
+    }
   };
 
   const viewHandler = async (el) => {
     setSelected(el);
+    console.log(el._id);
     readHandler("one", el._id);
+    console.log("readHandler ejecutado ✅"); // 👀
     setOpen(true);
   };
 
@@ -39,7 +47,7 @@ export const NotificationPanel = () => {
       name: "Marca todos como leídos",
       href: "#",
       icon: "",
-      onClick: () => readHandler("all", ""),
+      onClick: () => readHandler("all"),
     },
   ];
   return (
@@ -64,14 +72,14 @@ export const NotificationPanel = () => {
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-1"
         >
-          <PopoverPanel className="absolute -right-16 md:-right-2 z-10 mt-5 flex w-screen max-w-max  px-4">
+          <PopoverPanel className="absolute -right-16 md:-right-2 z-10 mt-5 flex w-screen max-w-max px-4">
             {({ close }) =>
               data?.length > 0 && (
                 <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
                   <div className="p-4">
-                    {data?.slice(0, 5).map((item, index) => (
+                    {data?.slice(0, 5).map((item) => (
                       <div
-                        key={item._id + index}
+                        key={item._id}
                         className="group relative flex gap-x-4 rounded-lg p-4 hover:bg-gray-50"
                       >
                         <div className="mt-1 h-8 w-8 flex items-center justify-center rounded-lg bg-gray-200 group-hover:bg-white">

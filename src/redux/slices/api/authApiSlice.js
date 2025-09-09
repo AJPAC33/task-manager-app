@@ -3,6 +3,13 @@ import { apiSlice } from "../apiSlice";
 const AUTH_URL = "/user";
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    checkSession: builder.query({
+      query: () => ({
+        url: `${AUTH_URL}/check-session`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
     login: builder.mutation({
       query: (data) => ({
         url: `${AUTH_URL}/login`,
@@ -29,5 +36,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
-  authApiSlice;
+export const {
+  useCheckSessionQuery,
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+} = authApiSlice;

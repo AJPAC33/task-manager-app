@@ -41,13 +41,16 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     markNotiAsRead: builder.mutation({
-      query: (data) => ({
-        url: `${USER_URL}/read-noti?isReadType=${data.type}&id=/${data.id}`,
-        method: "PUT",
-        body: data,
-        credentials: "include",
-      }),
+      query: ({ type, id }) => {
+        console.log("LLAMADA MUTATION:", type, id); // 👀
+        return {
+          url: `${USER_URL}/read-noti?isReadType=${type}&id=${id}`,
+          method: "PUT",
+          credentials: "include",
+        };
+      },
     }),
+
     changePassword: builder.mutation({
       query: (data) => ({
         url: `${USER_URL}/change-password`,

@@ -9,17 +9,21 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { PRIORITY_MIN_LABELS } from "../utils/data";
 
 export const Chart = ({ data }) => {
   return (
     <ResponsiveContainer width={"100%"} height={500}>
       <BarChart width={150} height={500} data={data}>
-        <XAxis dataKey="name" />
+        <XAxis
+          dataKey="name"
+          tickFormatter={(value) => PRIORITY_MIN_LABELS[value] || value}
+        />
         <YAxis />
         <Tooltip />
         <Legend />
         <CartesianGrid strokeDasharray="3 3" />
-        <Bar dataKey="total" fill="#8884d8" />
+        <Bar dataKey="total" fill="#8884d8" name="Total" />
       </BarChart>
     </ResponsiveContainer>
   );

@@ -20,7 +20,7 @@ export const Trash = () => {
   const [type, setType] = useState("delete");
   const [selected, setSelected] = useState("");
 
-  const { data, isLoading, refetch } = useGetAllTasksQuery({
+  const { data, isLoading } = useGetAllTasksQuery({
     strQuery: "",
     isTrashed: true,
     search: "",
@@ -62,7 +62,7 @@ export const Trash = () => {
       toast.success(result?.message);
       setTimeout(() => {
         setOpenDialog(false);
-        refetch();
+        window.location.reload();
       }, 500);
     } catch (error) {
       console.log(error);

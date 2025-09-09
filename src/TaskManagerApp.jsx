@@ -16,6 +16,7 @@ import { setOpenSidebar } from "./redux/slices/authSlice";
 import { IoClose } from "react-icons/io5";
 import { Transition } from "@headlessui/react";
 import clsx from "clsx";
+import { PersistLogin } from "./utils/usePersistLogin";
 
 const Layout = () => {
   const { user } = useSelector((state) => state.auth);
@@ -93,14 +94,16 @@ export const TaskManagerApp = () => {
   return (
     <main className="w-full min-h-screen bg-[#f3f4f6]">
       <Routes>
-        <Route element={<Layout />}>
-          <Route index path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/tasks" element={<Tasks />} />
-          <Route path="/:status/:name" element={<Tasks />} />
-          <Route path="/team" element={<Users />} />
-          <Route path="/trashed" element={<Trash />} />
-          <Route path="/task/:id" element={<TaskDetails />} />
+        <Route element={<PersistLogin />}>
+          <Route element={<Layout />}>
+            <Route index path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/:status/:name" element={<Tasks />} />
+            <Route path="/team" element={<Users />} />
+            <Route path="/trashed" element={<Trash />} />
+            <Route path="/task/:id" element={<TaskDetails />} />
+          </Route>
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

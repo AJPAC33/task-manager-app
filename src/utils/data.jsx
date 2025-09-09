@@ -119,8 +119,17 @@ export const LABELS_MAP = {
   delete: "Eliminar",
 };
 
-export const LISTS = ["PENDIENTE", "EN PROGRESO", "COMPLETADO"];
-export const PRIORITY = ["ALTA", "MEDIA", "NORMAL", "BAJA"];
+export const STAGE_OPTIONS = [
+  { value: "todo", label: "PENDIENTE" },
+  { value: "in-progress", label: "EN PROGRESO" },
+  { value: "completed", label: "COMPLETADO" },
+];
+
+export const PRIORITY_OPTIONS = [
+  { value: "high", label: "ALTA" },
+  { value: "medium", label: "MEDIA" },
+  { value: "low", label: "BAJA" },
+];
 
 export const bgColor = {
   high: "bg-red-200",
@@ -164,7 +173,7 @@ export const TASKTYPEICON = {
       <MdOutlineDoneAll size={24} />
     </div>
   ),
-  "in progress": (
+  "in-progress": (
     <div className="w-8 h-8 flex items-center justify-center rounded-full bg-violet-600 text-white">
       <GrInProgress size={16} />
     </div>

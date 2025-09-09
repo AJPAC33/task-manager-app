@@ -10,7 +10,15 @@ import clsx from "clsx";
 import { UserInfo } from "../components/UserInfo";
 import { useGetDashboardStatsQuery } from "../redux/slices/api/taskApiSlice";
 import { Loading } from "../components/Loader";
-import { BGS, ICONS, PRIORITYSTYLES, TASK_TYPE } from "../utils/data";
+import {
+  BGS,
+  ICONS,
+  PRIORITY_MIN_LABELS,
+  PRIORITYSTYLES,
+  TASK_TYPE,
+} from "../utils/data";
+import { useNavigate } from "react-router-dom";
+import { useCheckSessionQuery } from "../redux/slices/api/authApiSlice";
 
 const TaskTable = ({ tasks }) => {
   const TableHeader = () => (
@@ -39,7 +47,9 @@ const TaskTable = ({ tasks }) => {
           <span className={clsx("text-lg", PRIORITYSTYLES[task.priority])}>
             {ICONS[task.priority]}
           </span>
-          <span className="capitalize">{task.priority}</span>
+          <span className="capitalize">
+            {PRIORITY_MIN_LABELS[task.priority]}
+          </span>
         </div>
       </td>
       <td className="py-2">
@@ -134,7 +144,9 @@ const UserTable = ({ users }) => {
 };
 
 export const Dashboard = () => {
-  const { data, isLoading } = useGetDashboardStatsQuery();
+  const { isLoading, isError } = useCheckSessionQuery();
+  const { data } = useGetDashboardStatsQuery();
+  const navigate = useNavigate();
 
   if (isLoading)
     return (
@@ -142,6 +154,11 @@ export const Dashboard = () => {
         <Loading />
       </div>
     );
+
+  if (isError) {
+    navigate("/login");
+    return null;
+  }
 
   const totals = data?.tasks;
 
@@ -156,21 +173,21 @@ export const Dashboard = () => {
     {
       _id: "2",
       label: "TAREAS COMPLETADAS",
-      total: totals["completed"] || 0,
+      total: totals?.["completed"] || 0,
       icon: <MdAdminPanelSettings />,
       bg: "bg-[#0f766e]",
     },
     {
       _id: "3",
       label: "TAREAS EN PROGRESO ",
-      total: totals["in-progress"] || 0,
+      total: totals?.["in-progress"] || 0,
       icon: <LuClipboardPen />,
       bg: "bg-[#f59e0b]",
     },
     {
       _id: "4",
       label: "TAREAS PENDIENTES",
-      total: totals["todo"],
+      total: totals?.["todo"],
       icon: <FaArrowsToDot />,
       bg: "bg-[#be185d]" || 0,
     },

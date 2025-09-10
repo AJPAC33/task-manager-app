@@ -24,9 +24,7 @@ export const NotificationPanel = () => {
 
   const readHandler = async (type, id) => {
     try {
-      console.log("Voy a llamar a markAsRead con:", type, id); // 👀
       await markAsRead({ type, id }).unwrap();
-      console.log("markAsRead ejecutado ✅"); // 👀
       refetch();
     } catch (error) {
       console.error("Error al marcar notificación:", error);
@@ -35,9 +33,7 @@ export const NotificationPanel = () => {
 
   const viewHandler = async (el) => {
     setSelected(el);
-    console.log(el._id);
     readHandler("one", el._id);
-    console.log("readHandler ejecutado ✅"); // 👀
     setOpen(true);
   };
 

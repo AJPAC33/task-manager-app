@@ -28,4 +28,4 @@ app.use(morgan("dev"));
 app.use("/api", routes);
 app.use(routeNotFound);
 app.use(errorHandler);
-app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+app.listen(PORT);

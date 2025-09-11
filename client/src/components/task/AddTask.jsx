@@ -75,7 +75,6 @@ export const AddTask = ({ open, setOpen, task }) => {
         window.location.reload();
       }, 500);
     } catch (error) {
-      console.log(error);
       toast.error(error?.data?.message || error.message);
     }
   };

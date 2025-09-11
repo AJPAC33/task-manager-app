@@ -47,7 +47,6 @@ export const createTask = async (req, res) => {
       message: "La tarea se ha creado exitosamente.",
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -93,7 +92,6 @@ export const duplicateTask = async (req, res) => {
       .status(200)
       .json({ status: true, message: "Tarea actualizada exitosamente." });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -103,7 +101,6 @@ export const postTaskActivity = async (req, res) => {
     const { id } = req.params;
     const { userId } = req.user;
     const { type, activity } = req.body;
-    console.log(type);
 
     const task = await Task.findById(id);
 
@@ -121,7 +118,6 @@ export const postTaskActivity = async (req, res) => {
       .status(200)
       .json({ status: true, message: "Actividad publicada exitosamente." });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -202,7 +198,6 @@ export const dashboardStatistics = async (req, res) => {
       ...summary,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -231,7 +226,6 @@ export const getTasks = async (req, res) => {
       tasks,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -255,7 +249,6 @@ export const getTask = async (req, res) => {
       task,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -283,7 +276,6 @@ export const createSubTask = async (req, res) => {
       message: "La subtarea ha sido creada exitosamente.",
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -308,7 +300,6 @@ export const updateTask = async (req, res) => {
       .status(200)
       .json({ status: true, message: "Tarea actualizada exitosamente." });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -328,7 +319,6 @@ export const trashTask = async (req, res) => {
       message: `Tarea eliminada exitosamente.`,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };
@@ -358,7 +348,6 @@ export const deleteRestoreTask = async (req, res) => {
       message: `Operacion realizada exitosamente.`,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ status: false, message: error.message });
   }
 };

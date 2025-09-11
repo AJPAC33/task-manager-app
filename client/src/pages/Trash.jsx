@@ -65,7 +65,6 @@ export const Trash = () => {
         window.location.reload();
       }, 500);
     } catch (error) {
-      console.log(error);
       toast.error(error?.data?.message || error.error);
     }
   };

@@ -40,6 +40,7 @@ export const AddUser = ({ open, setOpen, userData }) => {
       }
       setTimeout(() => {
         setOpen(false);
+        window.Location.reload();
       }, 1500);
     } catch (error) {
       toast.error("Error al crear el usuario");
@@ -51,7 +52,7 @@ export const AddUser = ({ open, setOpen, userData }) => {
       <ModalWrapper open={open} setOpen={setOpen}>
         <form
           onSubmit={handleSubmit((data) =>
-            handleOnSubmit(data, isEditingLoggedUser)
+            handleOnSubmit(data, isEditingLoggedUser),
           )}
           className=""
         >

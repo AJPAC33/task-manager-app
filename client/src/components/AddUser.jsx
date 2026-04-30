@@ -40,7 +40,7 @@ export const AddUser = ({ open, setOpen, userData }) => {
       }
       setTimeout(() => {
         setOpen(false);
-        window.Location.reload();
+        window.location.reload();
       }, 1500);
     } catch (error) {
       toast.error("Error al crear el usuario");

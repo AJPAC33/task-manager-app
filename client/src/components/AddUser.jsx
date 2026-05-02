@@ -34,14 +34,12 @@ export const AddUser = ({ open, setOpen, userData }) => {
         if (isEditingLoggedUser) {
           dispatch(setCredentials({ ...result.user }));
         }
-      } else {
-        await addNewUser({ ...data, password: data.email });
-        toast.success("Usuario creado con éxito");
-      }
-      setTimeout(() => {
         setOpen(false);
-        window.location.reload();
-      }, 1500);
+      } else {
+        await addNewUser({ ...data, password: data.email }).unwrap();
+        toast.success("Usuario creado con éxito");
+        setOpen(false);
+      }
     } catch (error) {
       toast.error("Error al crear el usuario");
     }

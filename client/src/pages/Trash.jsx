@@ -60,10 +60,7 @@ export const Trash = () => {
       }
 
       toast.success(result?.message);
-      setTimeout(() => {
-        setOpenDialog(false);
-        window.location.reload();
-      }, 500);
+      setOpenDialog(false);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }

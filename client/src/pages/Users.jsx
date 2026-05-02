@@ -11,7 +11,7 @@ import {
 import { AddUser } from "../components/AddUser";
 import { IoMdAdd } from "react-icons/io";
 import {
-  useDeteteUserMutation,
+  useDeleteUserMutation,
   useGetTeamListQuery,
   useUserActionMutation,
 } from "../redux/slices/api/userApiSlice";
@@ -23,18 +23,17 @@ export const Users = () => {
   const [openAction, setOpenAction] = useState(false);
   const [selected, setSelected] = useState(null);
 
-  const { data, isLoading, refetch } = useGetTeamListQuery();
-  const [deleteUser] = useDeteteUserMutation();
+  const { data, isLoading } = useGetTeamListQuery();
+  const [deleteUser] = useDeleteUserMutation();
   const [userAction] = useUserActionMutation();
   const userActionHandler = async () => {
     try {
       const result = await userAction({
         isActive: !selected?.isActive,
         id: selected?._id,
-      });
+      }).unwrap();
 
-      refetch();
-      toast.success(result.data.message);
+      toast.success(result.message);
       setSelected(null);
       setTimeout(() => {
         setOpenAction(false);
@@ -46,10 +45,9 @@ export const Users = () => {
   };
   const deleteHandler = async () => {
     try {
-      const result = await deleteUser(selected);
+      const result = await deleteUser(selected).unwrap();
 
-      refetch();
-      toast.success(result?.data?.message);
+      toast.success(result?.message);
       setSelected(null);
       setTimeout(() => {
         setOpenDialog(false);
@@ -109,7 +107,7 @@ export const Users = () => {
           onClick={() => userStatusClick(user)}
           className={clsx(
             "w-fit px-4 py-1 rounded-full",
-            user?.isActive ? "bg-blue-200" : "bg-yellow-100"
+            user?.isActive ? "bg-blue-200" : "bg-yellow-100",
           )}
         >
           {user?.isActive ? "Activo" : "Inactivo"}

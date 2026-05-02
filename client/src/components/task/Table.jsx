@@ -36,10 +36,7 @@ export const Table = ({ tasks }) => {
         isTrashed: "trash",
       }).unwrap();
       toast.success(res?.message);
-      setTimeout(() => {
-        setOpenDialog(false);
-        window.location.reload();
-      }, 500);
+      setOpenDialog(false);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -111,7 +108,7 @@ export const Table = ({ tasks }) => {
               key={m._id}
               className={clsx(
                 "w-7 h-7 rounded-full text-white flex items-center justify-center text-sm -mr-1",
-                BGS[index % BGS?.length]
+                BGS[index % BGS?.length],
               )}
             >
               <UserInfo user={m} />

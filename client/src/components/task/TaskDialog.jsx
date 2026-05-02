@@ -34,10 +34,7 @@ export const TaskDialog = ({ task }) => {
     try {
       const res = await duplicateTask(task._id).unwrap();
       toast.success(res?.message);
-      setTimeout(() => {
-        setOpenDialog(false);
-        window.location.reload();
-      }, 500);
+      setOpenDialog(false);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -77,10 +74,7 @@ export const TaskDialog = ({ task }) => {
         isTrashed: "trash",
       }).unwrap();
       toast.success(res?.message);
-      setTimeout(() => {
-        setOpenDialog(false);
-        window.location.reload();
-      }, 500);
+      setOpenDialog(false);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -109,7 +103,7 @@ export const TaskDialog = ({ task }) => {
                   <MenuItem key={el.label}>
                     <h1
                       onClick={el?.onClick}
-                      className="data-[active]:bg-blue-500 data-[active]:text-white data-[inactive]:text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                      className="dataactive]:bg-blue-500 data-active:text-white data-inactive:text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
                     >
                       {el.icon}
                       {el.label}
@@ -122,7 +116,7 @@ export const TaskDialog = ({ task }) => {
                 <MenuItem>
                   <button
                     onClick={() => deleteClicks()}
-                    className="data-[active]:bg-blue-500 data-[active]:text-white data-[inactive]:text-red-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                    className="data-active:bg-blue-500 data-active:text-white data-inactive:text-red-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
                   >
                     <RiDeleteBin6Line
                       className="mr-2 h-5 w-5 text-red-400"

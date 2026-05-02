@@ -10,13 +10,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
-    deteteUser: builder.mutation({
+    deleteUser: builder.mutation({
       query: (id) => ({
         url: `${USER_URL}/${id}`,
         method: "DELETE",
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
     getTeamList: builder.query({
       query: () => ({
@@ -24,6 +26,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["User"],
     }),
     userAction: builder.mutation({
       query: (data) => ({
@@ -32,6 +35,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
     getNotifications: builder.query({
       query: () => ({
@@ -39,6 +43,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["User"],
     }),
     markNotiAsRead: builder.mutation({
       query: ({ type, id }) => {
@@ -49,6 +54,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
           credentials: "include",
         };
       },
+      invalidatesTags: ["User"],
     }),
 
     changePassword: builder.mutation({
@@ -58,6 +64,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
@@ -65,7 +72,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 export const {
   useUpdateUserMutation,
   useGetTeamListQuery,
-  useDeteteUserMutation,
+  useDeleteUserMutation,
   useUserActionMutation,
   useGetNotificationsQuery,
   useMarkNotiAsReadMutation,

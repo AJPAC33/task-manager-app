@@ -19,10 +19,7 @@ export const AddSubTask = ({ open, setOpen, id }) => {
     try {
       const res = await addSubTask({ data, id }).unwrap();
       toast.success(res.message);
-      setTimeout(() => {
-        setOpen(false);
-        window.location.reload();
-      }, 500);
+      setOpen(false);
     } catch (err) {
       console.log(err);
       toast.error(err?.data?.message || err.error);

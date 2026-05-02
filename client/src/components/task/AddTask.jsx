@@ -15,8 +15,6 @@ import { toast } from "sonner";
 import { formatDateForInput } from "../../utils";
 import { STAGE_OPTIONS, PRIORITY_OPTIONS } from "../../utils/data";
 
-const uploadedFileURLs = [];
-
 export const AddTask = ({ open, setOpen, task }) => {
   const defaultValues = {
     title: task?.title || "",
@@ -35,7 +33,7 @@ export const AddTask = ({ open, setOpen, task }) => {
   const [team, setTeam] = useState(task?.team || []);
   const [stage, setStage] = useState(task?.stage || STAGE_OPTIONS[0].value);
   const [priority, setPriority] = useState(
-    task?.priority || PRIORITY_OPTIONS[2].value
+    task?.priority || PRIORITY_OPTIONS[2].value,
   );
   const [assets, setAssets] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -45,6 +43,7 @@ export const AddTask = ({ open, setOpen, task }) => {
   const URLS = task?.assets ? [...task.assets] : [];
 
   const submitHandler = async (data) => {
+    const uploadedFileURLs = [];
     for (const file of assets) {
       setUploading(true);
       try {
@@ -70,10 +69,7 @@ export const AddTask = ({ open, setOpen, task }) => {
         ? await updateTask({ ...newData, _id: task._id }).unwrap()
         : await createTask(newData).unwrap();
       toast.success(res.message);
-      setTimeout(() => {
-        setOpen(false);
-        window.location.reload();
-      }, 500);
+      setOpen(false);
     } catch (error) {
       toast.error(error?.data?.message || error.message);
     }
